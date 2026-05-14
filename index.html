@@ -198,13 +198,307 @@
     }
 
     .hero .lead {
-      margin: 0 auto 2.25rem;
+      margin: 0 auto 2rem;
       max-width: 42rem;
       font-size: clamp(1rem, 2.1vw, 1.125rem);
       line-height: 1.65;
       color: var(--ink-soft);
       font-weight: 400;
       animation: rise 0.9s var(--ease-out) 0.12s both;
+    }
+
+    /* CV pipeline demo */
+    .cv-demo {
+      margin: 0 auto 2.25rem;
+      max-width: 720px;
+      text-align: left;
+      animation: rise 0.95s var(--ease-out) 0.14s both;
+    }
+
+    .cv-demo-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin: 0 0 0.65rem;
+    }
+
+    .cv-demo-stage {
+      display: grid;
+      grid-template-columns: 1fr minmax(0, 200px);
+      gap: 1rem;
+      align-items: stretch;
+      padding: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+      overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+      .cv-demo-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cv-lane {
+      position: relative;
+      min-height: 168px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, #f3f4f6 0%, #e8eaef 100%);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .cv-lane::after {
+      content: "Inbox";
+      position: absolute;
+      top: 0.5rem;
+      left: 0.6rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .cv-doc {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(240px, 78%);
+      transform: translate(-180%, -50%);
+      opacity: 0;
+      transition:
+        transform 0.65s var(--ease-out),
+        opacity 0.45s ease;
+      z-index: 2;
+    }
+
+    .cv-doc.cv-jump {
+      transition: none !important;
+    }
+
+    .cv-demo.cv-in .cv-doc {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+    }
+
+    .cv-demo.cv-out .cv-doc {
+      transform: translate(120%, -50%);
+      opacity: 0;
+    }
+
+    .cv-doc-inner {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 10px 28px rgba(15, 20, 25, 0.1);
+      padding: 0.65rem 0.75rem 0.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cv-doc-scan {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(37, 99, 235, 0.07) 45%,
+        rgba(37, 99, 235, 0.18) 50%,
+        rgba(37, 99, 235, 0.07) 55%,
+        transparent 100%
+      );
+      background-size: 220% 100%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cv-demo.cv-scan .cv-doc-scan {
+      opacity: 1;
+      animation: cv-scan-sweep 1.35s ease-in-out infinite;
+    }
+
+    @keyframes cv-scan-sweep {
+      0% { background-position: 100% 0; }
+      100% { background-position: -20% 0; }
+    }
+
+    .cv-doc-top {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .cv-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #93c5fd, var(--accent));
+      flex-shrink: 0;
+    }
+
+    .cv-doc-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .cv-doc-role {
+      font-size: 0.68rem;
+      color: var(--ink-soft);
+    }
+
+    .cv-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .cv-line {
+      height: 5px;
+      border-radius: 99px;
+      background: #e5e7eb;
+    }
+
+    .cv-line:nth-child(1) { width: 100%; }
+    .cv-line:nth-child(2) { width: 88%; }
+    .cv-line:nth-child(3) { width: 72%; }
+
+    .cv-engine {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-md);
+      background: linear-gradient(160deg, #f8fafc 0%, #eef2ff 100%);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      position: relative;
+    }
+
+    .cv-engine::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), transparent 55%, rgba(99, 102, 241, 0.2));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .cv-demo.cv-scan .cv-engine::before,
+    .cv-demo.cv-score .cv-engine::before {
+      opacity: 1;
+    }
+
+    .cv-engine-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .cv-status {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      min-height: 2.6em;
+      line-height: 1.35;
+    }
+
+    .cv-score-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .cv-score-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+    }
+
+    .cv-score {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-weight: 600;
+      font-size: 1.35rem;
+      color: var(--ink);
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.35s ease, transform 0.45s var(--ease-out);
+    }
+
+    .cv-demo.cv-score .cv-score {
+      opacity: 1;
+      transform: scale(1);
+      color: var(--accent);
+    }
+
+    .cv-bar {
+      height: 6px;
+      border-radius: 99px;
+      background: rgba(15, 20, 25, 0.08);
+      overflow: hidden;
+    }
+
+    .cv-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), #6366f1);
+      transition: width 0.85s var(--ease-out);
+    }
+
+    .cv-demo.cv-score .cv-bar-fill {
+      transition: width 0.85s var(--ease-out);
+    }
+
+    .cv-pulse-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-right: 0.35rem;
+      vertical-align: 0.05em;
+      animation: cv-dot-pulse 1s ease-in-out infinite;
+    }
+
+    .cv-demo.cv-score .cv-pulse-dot {
+      animation: none;
+      background: #22c55e;
+    }
+
+    @keyframes cv-dot-pulse {
+      0%, 100% { opacity: 0.35; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .cv-demo-fallback {
+      display: none;
+      font-size: 0.875rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      padding: 0.5rem 0;
     }
 
     @keyframes rise {
@@ -427,8 +721,23 @@
       .hero .lead,
       .logo-wrap,
       .panel-wrap,
-      .cta-row {
+      .cta-row,
+      .cv-demo {
         animation: none;
+      }
+
+      .cv-demo-motion {
+        display: none;
+      }
+
+      .cv-demo-fallback {
+        display: block;
+        margin: 0;
+        padding: 1rem 1.1rem;
+        background: var(--surface);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.65) inset;
       }
 
       .panel-cell .num.tick {
@@ -465,6 +774,48 @@
         <p class="lead">
           Ranksy helps teams understand visibility with clarity and speed. We are finishing the first public release of ranksy.se—reserve your spot and we will notify you at launch.
         </p>
+
+        <div class="cv-demo" id="cvDemo" aria-hidden="true">
+          <p class="cv-demo-label">Live preview</p>
+          <p class="cv-demo-fallback">
+            Each CV is analyzed by the ranking engine and receives a match score before the next application is processed.
+          </p>
+          <div class="cv-demo-motion">
+            <div class="cv-demo-stage">
+              <div class="cv-lane">
+                <div class="cv-doc" id="cvDoc">
+                  <div class="cv-doc-inner">
+                    <div class="cv-doc-scan" aria-hidden="true"></div>
+                    <div class="cv-doc-top">
+                      <div class="cv-avatar" aria-hidden="true"></div>
+                      <div>
+                        <div class="cv-doc-name" id="cvName">Alex Chen</div>
+                        <div class="cv-doc-role" id="cvRole">Senior Product Manager</div>
+                      </div>
+                    </div>
+                    <div class="cv-lines" aria-hidden="true">
+                      <div class="cv-line"></div>
+                      <div class="cv-line"></div>
+                      <div class="cv-line"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cv-engine">
+                <div class="cv-engine-title">Ranksy engine</div>
+                <div class="cv-status" id="cvStatus">
+                  <span class="cv-pulse-dot" aria-hidden="true"></span>
+                  <span id="cvStatusText">Waiting for next CV…</span>
+                </div>
+                <div class="cv-score-row">
+                  <span class="cv-score-label">Match score</span>
+                  <span class="cv-score" id="cvScore">0</span>
+                </div>
+                <div class="cv-bar"><div class="cv-bar-fill" id="cvBarFill"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="logo-wrap">
           <img src="full.png" alt="Ranksy wordmark" width="1040" height="auto" />
@@ -569,6 +920,110 @@
 
       tick();
       setInterval(tick, 1000);
+    })();
+
+    (function () {
+      var demo = document.getElementById("cvDemo");
+      var doc = document.getElementById("cvDoc");
+      var nameEl = document.getElementById("cvName");
+      var roleEl = document.getElementById("cvRole");
+      var statusText = document.getElementById("cvStatusText");
+      var scoreEl = document.getElementById("cvScore");
+      var barFill = document.getElementById("cvBarFill");
+
+      if (!demo || !doc || !nameEl || !roleEl || !statusText || !scoreEl || !barFill) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      var profiles = [
+        { name: "Alex Chen", role: "Senior Product Manager", score: 91 },
+        { name: "Maria Rossi", role: "Growth Lead", score: 86 },
+        { name: "Jordan Lee", role: "Engineering Manager", score: 94 },
+        { name: "Sam Okonkwo", role: "Head of Marketing", score: 82 },
+        { name: "Elena Berg", role: "Data Analyst", score: 89 },
+        { name: "Noah Patel", role: "Staff Engineer", score: 92 },
+      ];
+      var index = 0;
+
+      function wait(ms) {
+        return new Promise(function (resolve) {
+          setTimeout(resolve, ms);
+        });
+      }
+
+      function clearPhases() {
+        demo.classList.remove("cv-in", "cv-scan", "cv-score", "cv-out");
+      }
+
+      function resetBar() {
+        barFill.style.transition = "none";
+        barFill.style.width = "0%";
+        void barFill.offsetWidth;
+        barFill.style.transition = "";
+      }
+
+      function animateScore(target, ms) {
+        return new Promise(function (resolve) {
+          var start = performance.now();
+          function frame(now) {
+            var t = Math.min(1, (now - start) / ms);
+            var eased = 1 - Math.pow(1 - t, 3);
+            scoreEl.textContent = String(Math.round(target * eased));
+            if (t < 1) requestAnimationFrame(frame);
+            else {
+              scoreEl.textContent = String(target);
+              resolve();
+            }
+          }
+          requestAnimationFrame(frame);
+        });
+      }
+
+      async function runCycle() {
+        var p = profiles[index % profiles.length];
+        index += 1;
+
+        clearPhases();
+        resetBar();
+        scoreEl.textContent = "0";
+        nameEl.textContent = p.name;
+        roleEl.textContent = p.role;
+        statusText.textContent = "Receiving application…";
+
+        demo.classList.add("cv-in");
+        await wait(780);
+
+        statusText.textContent = "Structuring CV sections…";
+        demo.classList.add("cv-scan");
+        await wait(950);
+
+        statusText.textContent = "Embedding profile signals…";
+        await wait(850);
+
+        statusText.textContent = "Comparing against role rubric…";
+        await wait(800);
+
+        demo.classList.remove("cv-scan");
+        demo.classList.add("cv-score");
+        statusText.textContent = "Match score computed.";
+        await wait(120);
+
+        await animateScore(p.score, 520);
+        barFill.style.width = p.score + "%";
+        await wait(1400);
+
+        demo.classList.add("cv-out");
+        await wait(700);
+
+        clearPhases();
+        doc.classList.add("cv-jump");
+        void doc.offsetWidth;
+        doc.classList.remove("cv-jump");
+        await wait(380);
+
+        runCycle();
+      }
+
+      runCycle();
     })();
   </script>
 </body>
