@@ -253,7 +253,7 @@
     }
 
     .cv-lane::after {
-      content: "Inbox";
+      content: "Applicant queue";
       position: absolute;
       top: 0.5rem;
       left: 0.6rem;
@@ -778,7 +778,7 @@
         <div class="cv-demo" id="cvDemo" aria-hidden="true">
           <p class="cv-demo-label">Live preview</p>
           <p class="cv-demo-fallback">
-            Each CV is analyzed by the ranking engine and receives a match score before the next application is processed.
+            Each graduate application is analyzed by the ranking engine—education, publications, SOP, and research fit—before a score is assigned and the next applicant is processed.
           </p>
           <div class="cv-demo-motion">
             <div class="cv-demo-stage">
@@ -789,8 +789,8 @@
                     <div class="cv-doc-top">
                       <div class="cv-avatar" aria-hidden="true"></div>
                       <div>
-                        <div class="cv-doc-name" id="cvName">Alex Chen</div>
-                        <div class="cv-doc-role" id="cvRole">Senior Product Manager</div>
+                        <div class="cv-doc-name" id="cvName">Dr. Samira Haddad</div>
+                        <div class="cv-doc-role" id="cvRole">Ph.D. applicant · Machine Learning</div>
                       </div>
                     </div>
                     <div class="cv-lines" aria-hidden="true">
@@ -805,10 +805,10 @@
                 <div class="cv-engine-title">Ranksy engine</div>
                 <div class="cv-status" id="cvStatus">
                   <span class="cv-pulse-dot" aria-hidden="true"></span>
-                  <span id="cvStatusText">Waiting for next CV…</span>
+                  <span id="cvStatusText">Waiting for next application…</span>
                 </div>
                 <div class="cv-score-row">
-                  <span class="cv-score-label">Match score</span>
+                  <span class="cv-score-label">Program fit</span>
                   <span class="cv-score" id="cvScore">0</span>
                 </div>
                 <div class="cv-bar"><div class="cv-bar-fill" id="cvBarFill"></div></div>
@@ -935,12 +935,12 @@
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       var profiles = [
-        { name: "Alex Chen", role: "Senior Product Manager", score: 91 },
-        { name: "Maria Rossi", role: "Growth Lead", score: 86 },
-        { name: "Jordan Lee", role: "Engineering Manager", score: 94 },
-        { name: "Sam Okonkwo", role: "Head of Marketing", score: 82 },
-        { name: "Elena Berg", role: "Data Analyst", score: 89 },
-        { name: "Noah Patel", role: "Staff Engineer", score: 92 },
+        { name: "Dr. Samira Haddad", role: "Ph.D. applicant · Machine Learning", score: 91 },
+        { name: "James Okonkwo", role: "Ph.D. applicant · Organic Chemistry", score: 86 },
+        { name: "Lin Wei", role: "Postdoctoral applicant · Neuroscience", score: 94 },
+        { name: "Ana Gutiérrez", role: "M.Sc. applicant · Climate modeling", score: 82 },
+        { name: "Marcus Lindström", role: "Ph.D. applicant · Economics", score: 89 },
+        { name: "Priya Natarajan", role: "Ph.D. applicant · Astrophysics", score: 92 },
       ];
       var index = 0;
 
@@ -987,24 +987,27 @@
         scoreEl.textContent = "0";
         nameEl.textContent = p.name;
         roleEl.textContent = p.role;
-        statusText.textContent = "Receiving application…";
+        statusText.textContent = "Ingesting application materials…";
 
         demo.classList.add("cv-in");
         await wait(780);
 
-        statusText.textContent = "Structuring CV sections…";
         demo.classList.add("cv-scan");
-        await wait(950);
+        statusText.textContent = "Analyzing education & transcripts…";
+        await wait(980);
 
-        statusText.textContent = "Embedding profile signals…";
-        await wait(850);
+        statusText.textContent = "Reviewing publications & citation signals…";
+        await wait(960);
 
-        statusText.textContent = "Comparing against role rubric…";
-        await wait(800);
+        statusText.textContent = "Evaluating statement of purpose (SOP)…";
+        await wait(960);
+
+        statusText.textContent = "Mapping research interests to faculty themes…";
+        await wait(920);
 
         demo.classList.remove("cv-scan");
         demo.classList.add("cv-score");
-        statusText.textContent = "Match score computed.";
+        statusText.textContent = "Program fit score ready.";
         await wait(120);
 
         await animateScore(p.score, 520);
