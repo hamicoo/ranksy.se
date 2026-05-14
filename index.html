@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ranksy — Coming soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #030508;
+      --blue-bright: #2d8cff;
+      --blue-mid: #1a5fb4;
+      --blue-deep: #0c1e36;
+      --text-muted: rgba(180, 210, 255, 0.55);
+      --glow: rgba(45, 140, 255, 0.45);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Outfit", system-ui, sans-serif;
+      background: var(--bg);
+      color: #e8f1ff;
+      overflow-x: hidden;
+    }
+
+    .aurora {
+      position: fixed;
+      inset: -20%;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(45, 140, 255, 0.35), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 85% 15%, rgba(26, 95, 180, 0.25), transparent 50%),
+        radial-gradient(ellipse 70% 60% at 50% 100%, rgba(12, 30, 54, 0.9), transparent 60%);
+      animation: aurora-shift 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes aurora-shift {
+      0% { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(4%, -3%) scale(1.05); opacity: 0.92; }
+    }
+
+    .grid-noise {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .logo-shell {
+      position: relative;
+      animation: float-y 6s ease-in-out infinite;
+    }
+
+    @keyframes float-y {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .logo-shell::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 65%);
+      filter: blur(40px);
+      opacity: 0.5;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.35; transform: scale(0.95); }
+      50% { opacity: 0.6; transform: scale(1.05); }
+    }
+
+    .logo-shell img {
+      position: relative;
+      display: block;
+      width: min(88vw, 520px);
+      height: auto;
+      filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.6));
+    }
+
+    .tagline {
+      text-align: center;
+      max-width: 36rem;
+    }
+
+    .tagline h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.15rem, 3.5vw, 1.5rem);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .tagline p {
+      margin: 0;
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(200, 220, 255, 0.72);
+    }
+
+    .countdown {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: center;
+      gap: clamp(0.75rem, 3vw, 1.25rem);
+      width: 100%;
+      max-width: 52rem;
+    }
+
+    .unit {
+      flex: 1 1 7rem;
+      max-width: 11rem;
+      background: linear-gradient(145deg, rgba(20, 45, 80, 0.45), rgba(8, 16, 28, 0.75));
+      border: 1px solid rgba(45, 140, 255, 0.18);
+      border-radius: 1rem;
+      padding: clamp(1rem, 3vw, 1.35rem) clamp(0.75rem, 2vw, 1rem);
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 20px 40px rgba(0, 0, 0, 0.35);
+      transition: transform 0.35s ease, border-color 0.35s ease;
+    }
+
+    .unit:hover {
+      transform: translateY(-4px);
+      border-color: rgba(45, 140, 255, 0.35);
+    }
+
+    .unit.days {
+      flex: 1 1 100%;
+      max-width: 100%;
+      border-color: rgba(45, 140, 255, 0.28);
+      background: linear-gradient(155deg, rgba(30, 70, 120, 0.5), rgba(5, 10, 20, 0.85));
+    }
+
+    .unit .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .unit .value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(180deg, #fff 0%, #7eb8ff 55%, #2d8cff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(45, 140, 255, 0.35);
+    }
+
+    .unit.days .value {
+      font-size: clamp(3.5rem, 14vw, 6.5rem);
+      letter-spacing: -0.03em;
+    }
+
+    .unit:not(.days) .value {
+      font-size: clamp(2rem, 8vw, 2.75rem);
+    }
+
+    .unit .value.tick {
+      animation: tick-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes tick-pop {
+      0% { transform: scale(0.92); filter: brightness(1.4); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    .sub-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: clamp(0.75rem, 3vw, 1.25rem);
+      justify-content: center;
+      width: 100%;
+      max-width: 52rem;
+    }
+
+    .sub-row .unit {
+      flex: 1 1 6rem;
+    }
+
+    footer {
+      font-size: 0.8rem;
+      color: rgba(140, 170, 210, 0.4);
+      letter-spacing: 0.08em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora,
+      .logo-shell,
+      .logo-shell::before {
+        animation: none;
+      }
+      .unit .value.tick {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body data-launch="2026-12-01T00:00:00">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="grid-noise" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <div class="logo-shell">
+      <img src="full.png" alt="Ranksy" width="1040" height="auto" />
+    </div>
+
+    <div class="tagline">
+      <h1>Something new is on the way</h1>
+      <p>We are putting the finishing touches on ranksy.se. The counter below shows how many days remain until launch.</p>
+    </div>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div class="unit days">
+        <div class="label">Days</div>
+        <div class="value" id="d">—</div>
+      </div>
+      <div class="sub-row">
+        <div class="unit">
+          <div class="label">Hours</div>
+          <div class="value" id="h">—</div>
+        </div>
+        <div class="unit">
+          <div class="label">Minutes</div>
+          <div class="value" id="m">—</div>
+        </div>
+        <div class="unit">
+          <div class="label">Seconds</div>
+          <div class="value" id="s">—</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>ranksy.se</footer>
+  </main>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var launchAttr = body.getAttribute("data-launch");
+      var launch = launchAttr ? new Date(launchAttr) : new Date("2026-12-01T00:00:00");
+      var dEl = document.getElementById("d");
+      var hEl = document.getElementById("h");
+      var mEl = document.getElementById("m");
+      var sEl = document.getElementById("s");
+      var prev = { d: null, h: null, m: null, s: null };
+
+      function pad(n) {
+        return n < 10 ? "0" + n : String(n);
+      }
+
+      function tick() {
+        var now = new Date();
+        var diff = launch.getTime() - now.getTime();
+
+        if (isNaN(launch.getTime())) {
+          dEl.textContent = "—";
+          hEl.textContent = mEl.textContent = sEl.textContent = "—";
+          return;
+        }
+
+        if (diff <= 0) {
+          dEl.textContent = "0";
+          hEl.textContent = mEl.textContent = sEl.textContent = "00";
+          return;
+        }
+
+        var sec = Math.floor(diff / 1000);
+        var days = Math.floor(sec / 86400);
+        sec %= 86400;
+        var hours = Math.floor(sec / 3600);
+        sec %= 3600;
+        var mins = Math.floor(sec / 60);
+        var secs = sec % 60;
+
+        function setIfChanged(el, key, val, usePad) {
+          var str = usePad ? pad(val) : String(val);
+          if (prev[key] !== str) {
+            prev[key] = str;
+            el.textContent = str;
+            el.classList.remove("tick");
+            void el.offsetWidth;
+            el.classList.add("tick");
+          }
+        }
+
+        setIfChanged(dEl, "d", days, false);
+        setIfChanged(hEl, "h", hours, true);
+        setIfChanged(mEl, "m", mins, true);
+        setIfChanged(sEl, "s", secs, true);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>
