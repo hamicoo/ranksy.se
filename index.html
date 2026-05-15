@@ -430,8 +430,8 @@
       position: relative;
       z-index: 3;
       display: grid;
-      grid-template-columns: 1fr 38px minmax(0, 200px);
-      gap: 0.65rem 0.45rem;
+      grid-template-columns: minmax(0, 0.66fr) 38px minmax(0, 0.88fr) 28px minmax(96px, 0.32fr);
+      gap: 0.65rem 0.32rem;
       align-items: stretch;
     }
 
@@ -442,6 +442,17 @@
 
       .cv-bridge {
         display: none;
+      }
+
+      .cv-feed-bridge {
+        width: 100%;
+        min-height: 22px;
+        padding: 0.2rem 0;
+      }
+
+      .cv-feed-bridge-inner {
+        max-width: 16rem;
+        margin-inline: auto;
       }
     }
 
@@ -458,7 +469,7 @@
 
     .cv-lane {
       position: relative;
-      min-height: 176px;
+      min-height: 148px;
       border-radius: var(--radius-md);
       background-color: #e8eaef;
       background-image:
@@ -686,7 +697,7 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: min(248px, 80%);
+      width: min(220px, 78%);
       transform: translate(-185%, -50%) rotateY(-26deg) rotate(-4deg) scale(0.88);
       opacity: 0;
       transform-style: preserve-3d;
@@ -840,8 +851,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 0.5rem;
-      padding: 0.7rem 0.8rem;
+      gap: 0.55rem;
+      padding: 0.82rem 0.88rem;
       border-radius: var(--radius-md);
       background: linear-gradient(165deg, #fafbff 0%, #eef2ff 45%, #e8f0ff 100%);
       border: 1px solid rgba(37, 99, 235, 0.2);
@@ -913,10 +924,321 @@
       color: var(--ink);
     }
 
-    .cv-steps {
+    /* Step chips (Education → Research fit) */
+    .cv-steps-board {
       display: flex;
       flex-wrap: wrap;
       gap: 0.32rem;
+      margin-top: 0.42rem;
+      position: relative;
+      z-index: 4;
+    }
+
+    .cv-feed-bridge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      width: 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cv-feed-bridge-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      gap: 0;
+    }
+
+    .cv-feed-bridge-cap {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: rgba(37, 99, 235, 0.45);
+      box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
+    }
+
+    .cv-feed-bridge-cap--feed {
+      background: rgba(124, 58, 237, 0.5);
+      box-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
+    }
+
+    .cv-feed-bridge-track {
+      flex: 1;
+      height: 4px;
+      min-width: 8px;
+      border-radius: 99px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        90deg,
+        rgba(37, 99, 235, 0.2),
+        rgba(124, 58, 237, 0.18)
+      );
+    }
+
+    .cv-feed-bridge-beam {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.5) 40%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0.5) 60%,
+        transparent 100%
+      );
+      width: 45%;
+      animation: cv-feed-bridge-shuttle 1.1s ease-in-out infinite;
+    }
+
+    @keyframes cv-feed-bridge-shuttle {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(280%); }
+    }
+
+    .cv-demo.cv-scan .cv-feed-bridge-track {
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.15);
+    }
+
+    .cv-integrations {
+      display: flex;
+      flex-direction: column;
+      gap: 0.38rem;
+      padding: 0.5rem 0.45rem 0.55rem;
+      border-radius: var(--radius-md);
+      background: linear-gradient(168deg, #fafbff 0%, #eef2ff 42%, #e8ecfa 100%);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      min-width: 0;
+      position: relative;
+      z-index: 3;
+    }
+
+    .cv-integrations-title {
+      font-size: 0.48rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin: 0 0 0.06rem;
+    }
+
+    .cv-int-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+    }
+
+    .cv-source-flow--solo {
+      min-height: 0;
+      gap: 0.25rem;
+    }
+
+    .cv-source-flow--solo .cv-source-node--qs,
+    .cv-source-flow--solo .cv-source-node--scholar {
+      flex: 1;
+      width: 100%;
+    }
+
+    .cv-source-strip--solo {
+      padding: 0.22rem 0.28rem;
+    }
+
+    .cv-integrations .cv-source-flow--solo {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .cv-source-strip {
+      position: relative;
+      z-index: 2;
+      padding: 0.26rem 0.3rem;
+      border-radius: 9px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(238, 242, 255, 0.9) 100%);
+      border: 1px solid rgba(37, 99, 235, 0.14);
+      box-shadow: 0 3px 14px rgba(37, 99, 235, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .cv-source-strip--qs {
+      border-color: rgba(190, 18, 60, 0.14);
+      box-shadow:
+        0 3px 14px rgba(190, 18, 60, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .cv-source-strip--scholar {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(236, 253, 245, 0.92) 100%);
+      border-color: rgba(16, 185, 129, 0.2);
+      box-shadow:
+        0 3px 14px rgba(16, 185, 129, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .cv-source-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.32rem;
+      min-height: 2.05rem;
+    }
+
+    .cv-source-node {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+
+    .cv-source-node--qs {
+      flex: 1;
+      min-width: 0;
+      padding: 0.16rem 0.32rem;
+      border-radius: 7px;
+      background: linear-gradient(165deg, #fff1f2 0%, #ffe4e6 55%, #fecdd3 100%);
+      border: 1px solid rgba(190, 18, 60, 0.22);
+    }
+
+    .cv-source-qs-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.55rem;
+      height: 1.55rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+      font-size: 0.52rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #fff;
+      background: linear-gradient(145deg, #881337 0%, #be123c 55%, #e11d48 100%);
+      box-shadow: 0 2px 8px rgba(190, 18, 60, 0.32);
+    }
+
+    .cv-source-node-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.04rem;
+      min-width: 0;
+    }
+
+    .cv-source-node-title {
+      font-size: 0.52rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+    }
+
+    .cv-source-node--qs .cv-source-node-title {
+      text-transform: uppercase;
+      color: #9f1239;
+    }
+
+    .cv-source-node--scholar .cv-source-node-title {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      color: #0f766e;
+    }
+
+    .cv-source-node-note {
+      font-size: 0.48rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      line-height: 1.2;
+    }
+
+    .cv-source-node--scholar {
+      flex: 1;
+      min-width: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.08rem;
+      padding: 0.16rem 0.36rem 0.18rem;
+      border-radius: 7px;
+      background: linear-gradient(165deg, #f8fafc 0%, #ecfdf5 55%, #d1fae5 100%);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .cv-source-scholar-wordmark {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .cv-source-scholar-wordmark .cv-sch-google {
+      color: #4285f4;
+    }
+
+    .cv-source-scholar-wordmark .cv-sch-scholar {
+      color: #0d9488;
+    }
+
+    .cv-source-connector {
+      flex: 1;
+      min-width: 12px;
+      height: 3px;
+      border-radius: 99px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(37, 99, 235, 0.1);
+    }
+
+    .cv-source-connector.cv-source-connector--scholar {
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .cv-source-connector-beam {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(37, 99, 235, 0.15) 35%,
+        rgba(37, 99, 235, 0.95) 50%,
+        rgba(37, 99, 235, 0.15) 65%,
+        transparent 100%
+      );
+      width: 55%;
+      animation: cv-source-beam 1.15s ease-in-out infinite;
+    }
+
+    .cv-source-connector-beam--scholar {
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(16, 185, 129, 0.2) 35%,
+        rgba(5, 150, 105, 0.95) 50%,
+        rgba(16, 185, 129, 0.2) 65%,
+        transparent 100%
+      );
+    }
+
+    @keyframes cv-source-beam {
+      0% { transform: translateX(-108%); }
+      100% { transform: translateX(198%); }
+    }
+
+    .cv-demo.cv-scan .cv-integrations--phase-0 .cv-int-row--qs .cv-source-strip--qs {
+      border-color: rgba(190, 18, 60, 0.32);
+      box-shadow:
+        0 0 0 1px rgba(190, 18, 60, 0.22),
+        0 5px 20px rgba(190, 18, 60, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    }
+
+    .cv-demo.cv-scan .cv-integrations--phase-1 .cv-int-row--scholar .cv-source-strip--scholar {
+      border-color: rgba(16, 185, 129, 0.35);
+      box-shadow:
+        0 0 0 1px rgba(16, 185, 129, 0.25),
+        0 5px 20px rgba(16, 185, 129, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.78);
     }
 
     .cv-step {
@@ -1495,6 +1817,15 @@
         display: none;
       }
 
+      .cv-source-connector-beam,
+      .cv-source-connector-beam--scholar {
+        animation: none !important;
+      }
+
+      .cv-feed-bridge-beam {
+        animation: none !important;
+      }
+
       .cv-demo.cv-score .cv-bar-fill {
         animation: none;
       }
@@ -1645,7 +1976,7 @@
                       <span class="cv-pulse-dot" aria-hidden="true"></span>
                       <span id="cvStatusText">Waiting for next application…</span>
                     </div>
-                    <div class="cv-steps" id="cvSteps" aria-hidden="true">
+                    <div class="cv-steps-board" id="cvSteps" aria-hidden="true">
                       <span class="cv-step" data-section="0">
                         <span class="cv-step-label">Education</span>
                         <span class="cv-step-num">—</span>
@@ -1669,7 +2000,46 @@
                     </div>
                     <div class="cv-bar"><div class="cv-bar-fill" id="cvBarFill"></div></div>
                   </div>
-                </div>
+                  <div class="cv-feed-bridge" aria-hidden="true">
+                    <div class="cv-feed-bridge-inner">
+                      <span class="cv-feed-bridge-cap cv-feed-bridge-cap--engine"></span>
+                      <div class="cv-feed-bridge-track">
+                        <span class="cv-feed-bridge-beam"></span>
+                      </div>
+                      <span class="cv-feed-bridge-cap cv-feed-bridge-cap--feed"></span>
+                    </div>
+                  </div>
+                  <div class="cv-integrations" id="cvIntegrations" aria-hidden="true">
+                    <p class="cv-integrations-title">External benchmarks</p>
+                    <div class="cv-int-stack">
+                      <div class="cv-int-row cv-int-row--qs">
+                        <div class="cv-source-strip cv-source-strip--qs cv-source-strip--solo" aria-hidden="true">
+                          <div class="cv-source-flow cv-source-flow--solo">
+                            <div class="cv-source-node cv-source-node--qs">
+                              <span class="cv-source-qs-badge">QS</span>
+                              <div class="cv-source-node-text">
+                                <span class="cv-source-node-title">World University Rankings</span>
+                                <span class="cv-source-node-note">Institution tier &amp; reputation</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cv-int-row cv-int-row--scholar">
+                        <div class="cv-source-strip cv-source-strip--scholar cv-source-strip--solo" aria-hidden="true">
+                          <div class="cv-source-flow cv-source-flow--solo">
+                            <div class="cv-source-node cv-source-node--scholar">
+                              <div class="cv-source-scholar-wordmark" aria-hidden="true">
+                                <span class="cv-sch-google">Google</span><span class="cv-sch-scholar"> Scholar</span>
+                              </div>
+                              <span class="cv-source-node-title">Citation graph</span>
+                              <span class="cv-source-node-note">Profiles, h-index &amp; overlap</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -1792,6 +2162,7 @@
       var engineOverlay = document.getElementById("cvEngineOverlay");
       var overlayScore = document.getElementById("cvOverlayScore");
       var stepsRoot = document.getElementById("cvSteps");
+      var intPanel = document.getElementById("cvIntegrations");
 
       if (!demo || !doc || !nameEl || !roleEl || !statusText || !scoreEl || !barFill) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -1843,10 +2214,23 @@
         });
       }
 
+      function clearIntegrationPhase() {
+        if (!intPanel) return;
+        intPanel.classList.remove("cv-integrations--phase-0", "cv-integrations--phase-1");
+      }
+
+      function setIntegrationPhase(stepIndex) {
+        clearIntegrationPhase();
+        if (!intPanel) return;
+        if (stepIndex === 0) intPanel.classList.add("cv-integrations--phase-0");
+        else if (stepIndex === 1) intPanel.classList.add("cv-integrations--phase-1");
+      }
+
       function resetEngineUI() {
         scoreEl.textContent = "0";
         if (overlayScore) overlayScore.textContent = "0";
         if (engineOverlay) engineOverlay.classList.remove("cv-overlay-visible");
+        clearIntegrationPhase();
         if (stepsRoot) {
           stepsRoot.querySelectorAll(".cv-step").forEach(function (step) {
             step.classList.remove("cv-step-current", "cv-step-done");
@@ -1876,6 +2260,7 @@
 
       async function runSectionPhase(stepIndex, target, waitTotalMs, statusMsg) {
         statusText.textContent = statusMsg;
+        setIntegrationPhase(stepIndex);
         if (!stepsRoot) {
           await wait(waitTotalMs);
           return;
@@ -1892,6 +2277,7 @@
           stepEl.classList.remove("cv-step-current");
           stepEl.classList.add("cv-step-done");
         }
+        clearIntegrationPhase();
         var rest = Math.max(0, waitTotalMs - animMs);
         if (rest) await wait(rest);
       }
@@ -1913,8 +2299,8 @@
         var sections = sectionScoresFromFit(p.score);
 
         demo.classList.add("cv-scan");
-        await runSectionPhase(0, sections[0], 980, "Analyzing education & transcripts…");
-        await runSectionPhase(1, sections[1], 960, "Reviewing publications & citation signals…");
+        await runSectionPhase(0, sections[0], 980, "Analyzing education (QS World University Rankings)…");
+        await runSectionPhase(1, sections[1], 960, "Reviewing publications (Google Scholar)…");
         await runSectionPhase(2, sections[2], 960, "Evaluating statement of purpose (SOP)…");
         await runSectionPhase(3, sections[3], 920, "Mapping research interests to faculty themes…");
 
