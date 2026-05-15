@@ -2083,7 +2083,7 @@
                   <div class="cv-engine">
                     <div class="cv-engine-overlay" id="cvEngineOverlay" aria-hidden="true">
                       <div class="cv-engine-overlay-inner">
-                        <span class="cv-overlay-label">Program fit (composite)</span>
+                        <span class="cv-overlay-label">Overall score</span>
                         <span class="cv-overlay-score" id="cvOverlayScore">0</span>
                       </div>
                     </div>
@@ -2111,7 +2111,7 @@
                       </span>
                     </div>
                     <div class="cv-score-row">
-                      <span class="cv-score-label">Program fit</span>
+                      <span class="cv-score-label">Overall score</span>
                       <span class="cv-score" id="cvScore">0</span>
                     </div>
                     <div class="cv-bar"><div class="cv-bar-fill" id="cvBarFill"></div></div>
@@ -2421,7 +2421,7 @@
 
         demo.classList.remove("cv-scan");
         demo.classList.add("cv-score");
-        statusText.textContent = "Program fit score ready.";
+        statusText.textContent = "Overall score ready.";
         if (engineOverlay) engineOverlay.classList.add("cv-overlay-visible");
         await wait(160);
 
