@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ranksy is launching soon. Join the waitlist for early access to rank intelligence for modern teams." />
+  <meta name="description" content="Ranksy builds AI-powered tools for universities and research institutions to evaluate academic applicants with explainable scoring, research matching, and intelligent CV analysis." />
   <title>Ranksy — Launching soon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -320,7 +320,7 @@
       font-weight: 700;
       letter-spacing: -0.035em;
       line-height: 1.08;
-      max-width: 18ch;
+      max-width: min(38ch, 100%);
       margin-inline: auto;
       animation:
         rise 0.85s var(--ease-out) 0.06s both,
@@ -353,25 +353,6 @@
       text-align: left;
       animation: rise 0.95s var(--ease-out) 0.14s both;
       perspective: 1200px;
-    }
-
-    .cv-demo-label {
-      margin: 0 0 0.65rem;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, var(--accent), #7c3aed, var(--accent));
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: cv-label-shine 3.5s ease-in-out infinite;
-    }
-
-    @keyframes cv-label-shine {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
     }
 
     .cv-demo-pack {
@@ -1226,14 +1207,6 @@
         box-shadow: none;
       }
 
-      .cv-demo-label {
-        animation: none;
-        color: var(--ink-faint);
-        background: none;
-        -webkit-background-clip: unset;
-        background-clip: unset;
-      }
-
       .cv-demo-particles {
         display: none;
       }
@@ -1352,13 +1325,12 @@
           In development
         </div>
 
-        <h1>Rank intelligence, built for what is next.</h1>
+        <h1>AI-Powered Academic Talent Evaluation</h1>
         <p class="lead">
-          Ranksy helps teams understand visibility with clarity and speed. We are finishing the first public release of ranksy.se—reserve your spot and we will notify you at launch.
+          We build AI-powered tools that help universities and research institutions evaluate and rank academic applicants using explainable scoring, research matching, and intelligent CV analysis.
         </p>
 
         <div class="cv-demo" id="cvDemo" aria-hidden="true">
-          <p class="cv-demo-label">Live preview</p>
           <p class="cv-demo-fallback">
             Each graduate application is analyzed by the ranking engine—education, publications, SOP, and research fit—before a score is assigned and the next applicant is processed.
           </p>
